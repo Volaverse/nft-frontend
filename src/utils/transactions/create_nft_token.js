@@ -5,9 +5,9 @@ import { getFullAssetSchema, calcMinTxFee } from "../common";
 import { fetchAccountInfo } from "../../api";
 
 export const createNFTTokenSchema = {
-  $id: "lisk/create-nft-asset",
+  $id: "lisk/nft/create",
   type: "object",
-  required: ["minPurchaseMargin", "initValue", "name"],
+  required: ["minPurchaseMargin", "initValue", "name","category","imageUrl"],
   properties: {
     minPurchaseMargin: {
       dataType: "uint32",
@@ -21,6 +21,14 @@ export const createNFTTokenSchema = {
       dataType: "string",
       fieldNumber: 3,
     },
+    category: {
+      dataType: "uint32",
+      fieldNumber: 4,
+    },
+    imageUrl: {
+      dataType: "string",
+      fieldNumber: 5,
+    },
   },
 };
 
@@ -29,6 +37,8 @@ export const createNFTToken = async ({
   initValue,
   minPurchaseMargin,
   passphrase,
+  category,
+  imageUrl,
   fee,
   networkIdentifier,
   minFeePerByte,
@@ -37,6 +47,7 @@ export const createNFTToken = async ({
     passphrase
   );
   const address = cryptography.getAddressFromPassphrase(passphrase).toString("hex");
+  console.log("Value for nft creation CATEGORY"+ parseInt(category)+ " : "+ imageUrl);
 
   const {
     sequence: { nonce },
@@ -54,6 +65,8 @@ export const createNFTToken = async ({
         name,
         initValue: BigInt(transactions.convertLSKToBeddows(initValue)),
         minPurchaseMargin: parseInt(minPurchaseMargin),
+        category: parseInt(category),
+        imageUrl,
       },
     },
     Buffer.from(networkIdentifier, "hex"),

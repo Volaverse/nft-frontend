@@ -65,6 +65,14 @@ export default function NFTToken(props) {
             <dt>Minimum Purchase Margin</dt>
             <dd>{props.item.minPurchaseMargin}</dd>
           </li>
+          <li>
+            <dt>Category</dt>
+            <dd>{props.item.category}</dd>
+          </li>
+          <li>
+            <dt>Image Url</dt>
+            <dd>{props.item.imageUrl}</dd>
+          </li>
           {!props.minimum && (
             <li>
               <dt>Current Owner</dt>

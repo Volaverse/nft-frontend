@@ -29,11 +29,14 @@ export default function CreateNFTTokenDialog(props) {
     minPurchaseMargin: "",
     fee: "",
     passphrase: "",
+    category:1,
+    imageUrl:"just_a_url@image.com",
   });
 
   const handleChange = (event) => {
     event.persist();
     setData({ ...data, [event.target.name]: event.target.value });
+    console.log(event.target.name+" "+event.target.value);
   };
 
   const handleSend = async (event) => {
@@ -68,6 +71,7 @@ export default function CreateNFTTokenDialog(props) {
               onChange={handleChange}
               fullWidth
             />
+
             <TextField
               label="Minimum Purchase Margin (0 - 100)"
               value={data.minPurchaseMargin}
@@ -86,6 +90,20 @@ export default function CreateNFTTokenDialog(props) {
               label="Passphrase"
               value={data.passphrase}
               name="passphrase"
+              onChange={handleChange}
+              fullWidth
+            />
+            <TextField
+              label="Category"
+              value={data.category}
+              name="category"
+              onChange={handleChange}
+              fullWidth
+            />
+            <TextField
+              label="Image Url"
+              value={data.imageUrl}
+              name="imageUrl"
               onChange={handleChange}
               fullWidth
             />
