@@ -20,6 +20,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AddIcon from '@material-ui/icons/Add';
 import LocalAtmIcon from '@material-ui/icons/LocalAtm';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
+import PolylineSharpIcon from '@mui/icons-material/PolylineSharp';
 import * as api from './api';
 import { NodeInfoContext, nodeInfoContextDefaultValue } from './context';
 
@@ -29,6 +30,7 @@ import AccountPage from './components/AccountPage';
 import CreateAccountDialog from './components/dialogs/CreateAccountDialog';
 import TransferFundsDialog from './components/dialogs/TransferFundsDialog';
 import CreateNFTTokenDialog from './components/dialogs/CreateNFTTokenDialog';
+import CreateNFTsTokenDialog from './components/dialogs/CreateNFTsTokenDialog';
 
 const useStyles = makeStyles((theme) => ({
 	appBarLink: {
@@ -138,6 +140,15 @@ function App() {
 								setOpenDialog('CreateNFTTokenDialog');
 							}}
 						/>
+						<SpeedDialAction
+							key={'Create Multiple NFTs'}
+							icon={<PolylineSharpIcon />}
+							tooltipTitle={'Create Multiple NFT'}
+							onClick={() => {
+								setOpenSpeedDial(false);
+								setOpenDialog('CreateNFTsTokenDialog');
+							}}
+						/>
 
 						<SpeedDialAction
 							key={'Transfer'}
@@ -177,7 +188,12 @@ function App() {
 							setOpenDialog(null);
 						}}
 					/>
-
+					<CreateNFTsTokenDialog
+						open={openDialog === 'CreateNFTsTokenDialog'}
+						handleClose={() => {
+							setOpenDialog(null);
+						}}
+					/>
 					<CreateAccountDialog
 						open={openDialog === 'CreateAccountDialog'}
 						handleClose={() => {
