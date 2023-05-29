@@ -21,25 +21,74 @@ export const createNFTTokenSchema = {
       dataType: "string",
       fieldNumber: 3,
     },
+    description: {
+      dataType: "string",
+      fieldNumber: 4,
+    },
     category: {
       dataType: "uint32",
-      fieldNumber: 4,
+      fieldNumber: 5,
     },
     imageUrl: {
       dataType: "string",
-      fieldNumber: 5,
+      fieldNumber: 6,
+    },
+    x: {
+      dataType: "string",
+      fieldNumber: 7,
+    },
+    y: {
+      dataType: "string",
+      fieldNumber: 8,
+    },
+    threeDUrl: {
+      dataType: "string",
+      fieldNumber: 9,
+    },
+    area: {
+      dataType: "string",
+      fieldNumber: 10,
+    },
+    landmark: {
+      dataType: "string",
+      fieldNumber: 11,
+    },
+    type: {
+      dataType: "string",
+      fieldNumber: 12,
+    },
+    bodypart: {
+      dataType: "string",
+      fieldNumber: 13,
+    },
+    gender: {
+      dataType: "string",
+      fieldNumber: 14,
+    },
+    serialNo: {
+      dataType: "string",
+      fieldNumber: 15,
     },
   },
 };
-
 export const createNFTToken = async ({
   name,
+  description,
   initValue,
   minPurchaseMargin,
   passphrase,
   category,
   imageUrl,
   fee,
+  x,
+  y,
+  threeDUrl,
+  area,
+  landmark,
+  type,
+  bodypart,
+  gender,
+  serialNo,
   networkIdentifier,
   minFeePerByte,
 }) => {
@@ -63,10 +112,20 @@ export const createNFTToken = async ({
       senderPublicKey: publicKey,
       asset: {
         name,
+        description,
         initValue: BigInt(transactions.convertLSKToBeddows(initValue)),
         minPurchaseMargin: parseInt(minPurchaseMargin),
         category: parseInt(category),
         imageUrl,
+        x,
+        y,
+        threeDUrl,
+        area,
+        landmark,
+        type,
+        bodypart,
+        gender,
+        serialNo,
       },
     },
     Buffer.from(networkIdentifier, "hex"),

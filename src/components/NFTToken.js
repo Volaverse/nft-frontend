@@ -15,7 +15,8 @@ import { transactions, cryptography, Buffer } from "@liskhq/lisk-client";
 import PurchaseNFTTokenDialog from "./dialogs/PurchaseNFTTokenDialog";
 import TransferNFTDialog from "./dialogs/TransferNFTDialog";
 import SellNFTTokenDialog from "./dialogs/SellNFTDialog";
-
+import EditNFTNameDialog from "./dialogs/editNFTNameDialog";
+import EditNFTDescriptionDialog from "./dialogs/editNFTDescriptionDialog";
 const useStyles = makeStyles((theme) => ({
   propertyList: {
     listStyle: "none",
@@ -46,6 +47,8 @@ export default function NFTToken(props) {
   const [openPurchase, setOpenPurchase] = useState(false);
   const [openSell, setOpenSell] = useState(false);
   const [openTransfer, setOpenTransfer] = useState(false);
+  const [editName, setOpenEditName] = useState(false);
+  const [editDescription, setOpenEditDescription] = useState(false);
   const base32UIAddress = cryptography.getBase32AddressFromAddress(Buffer.from(props.item.ownerAddress, 'hex'), 'lsk').toString('binary');
   return (
     <Card>
@@ -53,6 +56,10 @@ export default function NFTToken(props) {
         <Typography variant="h6">{props.item.name}</Typography>
         <Divider />
         <dl className={classes.propertyList}>
+        <li>
+            <dt>Description</dt>
+            <dd>{props.item.description}</dd>
+        </li>
           <li>
             <dt>Token ID</dt>
             <dd>{props.item.id}</dd>
@@ -120,6 +127,46 @@ export default function NFTToken(props) {
             open={openTransfer}
             handleClose={() => {
               setOpenTransfer(false);
+            }}
+            token={props.item}
+          
+          />
+        </>
+        <>
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => {
+              setOpenEditName(true);
+            }}
+          >
+            Edit NFT Name
+          </Button>
+
+          <EditNFTNameDialog
+            open={editName}
+            handleClose={() => {
+              setOpenEditName(false);
+            }}
+            token={props.item}
+          
+          />
+        </>
+        <>
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => {
+              setOpenEditDescription(true);
+            }}
+          >
+            Edit NFT Description
+          </Button>
+
+          <EditNFTDescriptionDialog
+            open={editDescription}
+            handleClose={() => {
+              setOpenEditDescription(false);
             }}
             token={props.item}
           

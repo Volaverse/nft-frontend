@@ -87,7 +87,7 @@ export default function TransferFundsDialog(props) {
                 setData({
                   ...data,
                   passphrase:
-                    "peanut hundred pen hawk invite exclude brain chunk gadget wait wrong ready",
+                    "birth cram dynamic random chalk tackle hotel rifle basic act erupt december",
                 });
               }}
             >

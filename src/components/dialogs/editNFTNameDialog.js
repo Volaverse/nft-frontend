@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { NodeInfoContext } from "../../context";
-import { transferNFT } from "../../utils/transactions/transfer_nft";
+import { editNFTname } from "../../utils/transactions/edit_nft_name";
 import * as api from "../../api";
 
 const useStyles = makeStyles((theme) => ({
@@ -20,16 +20,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TransferNFTDialog(props) {
+export default function EditNFTNameDialog(props) {
   const nodeInfo = useContext(NodeInfoContext);
   const classes = useStyles();
-
   const [data, setData] = useState({
     name: props.token.name,
     nftId: props.token.id,
-    recipientAddress: "",
     fee: "",
     passphrase: "",
+    
+    
   });
 
   const handleChange = (event) => {
@@ -40,7 +40,7 @@ export default function TransferNFTDialog(props) {
   const handleSend = async (event) => {
     event.preventDefault();
 
-    const res = await transferNFT({
+    const res = await editNFTname({
       ...data,
       networkIdentifier: nodeInfo.networkIdentifier,
       minFeePerByte: nodeInfo.minFeePerByte,
@@ -53,7 +53,7 @@ export default function TransferNFTDialog(props) {
     <Fragment>
       <Dialog open={props.open} onBackdropClick={props.handleClose}>
         <DialogTitle id="alert-dialog-title">
-          {"Transfer NFT"}
+          {"Edit NFT name"}
         </DialogTitle>
         <DialogContent>
           <form className={classes.root} noValidate autoComplete="off">
@@ -69,14 +69,6 @@ export default function TransferNFTDialog(props) {
               value={data.nftId}
               name="nftId"
               onChange={handleChange}
-              fullWidth
-            />
-            <TextField
-              label="Recipient address"
-              value={data.recipientAddress}
-              name="recipientAddress"
-              onChange={handleChange}
-              helperText={`Address of the account that will receive the NFT.`}
               fullWidth
             />
             <TextField
@@ -96,7 +88,7 @@ export default function TransferNFTDialog(props) {
           </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleSend}>Transfer NFT</Button>
+          <Button onClick={handleSend}>Edit Name</Button>
         </DialogActions>
       </Dialog>
     </Fragment>

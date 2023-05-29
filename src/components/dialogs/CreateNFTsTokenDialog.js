@@ -26,13 +26,24 @@ export default function CreateNFTsTokenDialog(props) {
   const classes = useStyles();
   const [data, setData] = useState({
     name: "",
+    description: "",
     initValue: "",
     minPurchaseMargin: "",
     fee: "",
     passphrase: "",
     category:0,
     imageUrl:"just_a_url@image.com",
+    x:"",
+    y:"",
+    threeD_url:"",
+    area:"",
+    landmark:"",
+    type:"",
+    bodypart:"",
+    gender:"",
+    serialNo:"",
     num:0,
+
   });
 
   const handleChange = (event) => {
@@ -47,6 +58,12 @@ export default function CreateNFTsTokenDialog(props) {
     if(parseInt(num)>0){
       for (var i=0;i<num;i++){
         params.name= data.name +String(i+1);
+        if(params.category==1 || params.category=="1" ){
+          params.imageUrl = "https://store.volaverse.com/assets/wearables/"+String(i+1)+".png";
+        }
+        if(params.category==2 || params.category=="2" ){
+          params.imageUrl = "https://store.volaverse.com/assets/collectibles/"+String(i+1)+".png";
+        }
         const res = await createNFTToken({
           ...params,
           networkIdentifier: nodeInfo.networkIdentifier,
@@ -74,6 +91,13 @@ export default function CreateNFTsTokenDialog(props) {
               label="Name"
               value={data.name}
               name="name"
+              onChange={handleChange}
+              fullWidth
+            />
+            <TextField
+              label="Description"
+              value={data.description}
+              name="description"
               onChange={handleChange}
               fullWidth
             />
@@ -124,6 +148,69 @@ export default function CreateNFTsTokenDialog(props) {
               label="Image Url"
               value={data.imageUrl}
               name="imageUrl"
+              onChange={handleChange}
+              fullWidth
+            />
+            <TextField
+              label="X coordinate"
+              value={data.x}
+              name="x"
+              onChange={handleChange}
+              fullWidth
+            />
+           <TextField
+              label="Y coordinate"
+              value={data.y}
+              name="y"
+              onChange={handleChange}
+              fullWidth
+            />
+            <TextField
+              label="threeD_url"
+              value={data.threeD_url}
+              name="threeD_url"
+              onChange={handleChange}
+              fullWidth
+            />
+            <TextField
+              label="area"
+              value={data.area}
+              name="area"
+              onChange={handleChange}
+              fullWidth
+            />
+            <TextField
+              label="landmark"
+              value={data.landmark}
+              name="landmark"
+              onChange={handleChange}
+              fullWidth
+            />
+            <TextField
+              label="type"
+              value={data.type}
+              name="type"
+              onChange={handleChange}
+              fullWidth
+            />
+            <TextField
+              label="bodypart"
+              value={data.bodypart}
+              name="bodypart"
+              onChange={handleChange}
+              fullWidth
+            />
+            <TextField
+              label="gender"
+              value={data.gender}
+              name="gender"
+              onChange={handleChange}
+              fullWidth
+            />
+            <TextField
+              label="serialNo"
+              value={data.serialNo}
+              name="serialNo"
               onChange={handleChange}
               fullWidth
             />

@@ -4,30 +4,25 @@ import { transactions, codec, cryptography } from "@liskhq/lisk-client";
 import { getFullAssetSchema, calcMinTxFee } from "../common";
 import { fetchAccountInfo } from "../../api";
 
-export const transferNFTSchema = {
-  $id: "lisk/nft/transfer",
+export const editNFTDescriptionSchema = {
+  $id: "lisk/nft/editDescription",
   type: "object",
-  required: ["nftId", "recipient"],
+  required: ["nftId", "description"],
   properties: {
     nftId: {
       dataType: "bytes",
       fieldNumber: 1,
     },
-    recipient: {
-      dataType: "bytes",
-      fieldNumber: 2,
-    },
-    name: {
+    description: {
       dataType: "string",
-      fieldNumber: 3,
+      fieldNumber: 2,
     },
   },
 };
 
-export const transferNFT = async ({
-                                         name,
+export const editNFTDescription = async ({
+                                        description,
                                          nftId,
-                                         recipientAddress,
                                          passphrase,
                                          fee,
                                          networkIdentifier,
@@ -37,23 +32,22 @@ export const transferNFT = async ({
     passphrase
   );
   const address = cryptography.getAddressFromPassphrase(passphrase);
-  const recipient = cryptography.getAddressFromBase32Address(recipientAddress);
+
   const {
     sequence: { nonce },
   } = await fetchAccountInfo(address.toString("hex"));
 
   const { id, ...rest } = transactions.signTransaction(
-    transferNFTSchema,
+    editNFTDescriptionSchema,
     {
       moduleID: 1024,
-      assetID: 2,
+      assetID: 6,
       nonce: BigInt(nonce),
       fee: BigInt(transactions.convertLSKToBeddows(fee)),
       senderPublicKey: publicKey,
       asset: {
-        name,
+        description,
         nftId: Buffer.from(nftId, "hex"),
-        recipient: recipient,
       },
     },
     Buffer.from(networkIdentifier, "hex"),
@@ -62,7 +56,7 @@ export const transferNFT = async ({
 
   return {
     id: id.toString("hex"),
-    tx: codec.codec.toJSON(getFullAssetSchema(transferNFTSchema), rest),
-    minFee: calcMinTxFee(transferNFTSchema, minFeePerByte, rest),
+    tx: codec.codec.toJSON(getFullAssetSchema(editNFTDescriptionSchema), rest),
+    minFee: calcMinTxFee(editNFTDescriptionSchema, minFeePerByte, rest),
   };
 };

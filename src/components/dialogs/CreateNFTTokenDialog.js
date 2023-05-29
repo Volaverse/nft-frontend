@@ -25,12 +25,22 @@ export default function CreateNFTTokenDialog(props) {
   const classes = useStyles();
   const [data, setData] = useState({
     name: "",
+    description: "",
     initValue: "",
     minPurchaseMargin: "",
     fee: "",
     passphrase: "",
     category:1,
     imageUrl:"just_a_url@image.com",
+    x:"",
+    y:"",
+    threeDUrl:"",
+    area:"",
+    landmark:"",
+    type:"",
+    bodypart:"",
+    gender:"",
+    serialNo:"",
   });
 
   const handleChange = (event) => {
@@ -61,6 +71,13 @@ export default function CreateNFTTokenDialog(props) {
               label="Name"
               value={data.name}
               name="name"
+              onChange={handleChange}
+              fullWidth
+            />
+            <TextField
+              label="Description"
+              value={data.description}
+              name="description"
               onChange={handleChange}
               fullWidth
             />
@@ -104,6 +121,69 @@ export default function CreateNFTTokenDialog(props) {
               label="Image Url"
               value={data.imageUrl}
               name="imageUrl"
+              onChange={handleChange}
+              fullWidth
+            />
+            <TextField
+              label="X coordinate"
+              value={data.x}
+              name="x"
+              onChange={handleChange}
+              fullWidth
+            />
+           <TextField
+              label="Y coordinate"
+              value={data.y}
+              name="y"
+              onChange={handleChange}
+              fullWidth
+            />
+                        <TextField
+              label="threeD_url"
+              value={data.threeDUrl}
+              name="threeDUrl"
+              onChange={handleChange}
+              fullWidth
+            />
+            <TextField
+              label="area"
+              value={data.area}
+              name="area"
+              onChange={handleChange}
+              fullWidth
+            />
+            <TextField
+              label="landmark"
+              value={data.landmark}
+              name="landmark"
+              onChange={handleChange}
+              fullWidth
+            />
+            <TextField
+              label="type"
+              value={data.type}
+              name="type"
+              onChange={handleChange}
+              fullWidth
+            />
+            <TextField
+              label="bodypart"
+              value={data.bodypart}
+              name="bodypart"
+              onChange={handleChange}
+              fullWidth
+            />
+            <TextField
+              label="gender"
+              value={data.gender}
+              name="gender"
+              onChange={handleChange}
+              fullWidth
+            />
+            <TextField
+              label="serialNo"
+              value={data.serialNo}
+              name="serialNo"
               onChange={handleChange}
               fullWidth
             />
